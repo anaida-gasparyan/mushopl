@@ -1,0 +1,35 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <title>Multi User Shopping List</title>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="css/bootstrap/css/bootstrap.min.css"
+          th:href="@{/css/bootstrap/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" href="css/main.css" th:href="@{/css/main.css}"/>
+</head>
+<body>
+<div layout:fragment="header">
+    <div th:replace="fragments/header :: header('')"></div>
+</div>
+<div class="container">
+    <div layout:fragment="content"></div>
+</div>
+<div th:replace="fragments/footer :: footer"></div>
+<script src="js/jquery/jquery.min.js" th:src="@{/js/jquery/jquery.min.js}"></script>
+<script src="js/bootstrap/bootstrap.min.js" th:src="@{/js/bootstrap/bootstrap.min.js}"></script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    $(function () {
+        $('#categories').on('change', function () {
+            var url = [[@{/}]];
+            $("#productList").load(url + "products/filter?category=" + $(this).val());
+        });
+    });
+    /*]]>*/
+</script>
+<div layout:fragment="script"></div>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="list" class="row">
+    <div th:each="product : ${products}" class="col-md-3">
+        <div class="product">
+            <h2 th:text="${product.name}"></h2>
+
+            <div class="product-description" th:text="${product.description}"></div>
+            <div class="clear"></div>
+            <hr/>
+            <div>
+                <span class="price_style">
+                    <strike class="strike_price" th:if="${product.oldPrice}">
+                        $<span th:text="${#numbers.formatDecimal(product.oldPrice, 0, 'DEFAULT', 2, 'DEFAULT')}"></span>
+                    </strike>
+                    $<span th:text="${#numbers.formatDecimal(product.price, 0, 'DEFAULT', 2, 'DEFAULT')}"></span>
+                </span>
+                <br/><br/>
+                <a href="#" class="btn btn-primary"
+                   th:href="@{/{username}/product/{id}(username=${#httpServletRequest.remoteUser}, id=${product.id})}">Add to Cart</a>
+                <a href="#" class="btn btn-default"
+                   th:href="@{/products/{id}/details(id=${product.id})}">View details »</a>
+            </div>
+        </div>
+    </div>
+    <div th:if="${#lists.isEmpty(products)}">
+        There is no products available
+    </div>
+</div>
+</body>
+</html>

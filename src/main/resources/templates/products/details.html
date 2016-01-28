@@ -1,0 +1,38 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/layout">
+<body>
+<div layout:fragment="content">
+    <div class="row">
+        <div class="col-md-8 product">
+            <h3 th:text="${product.name}"></h3>
+            <hr/>
+            <div th:text="${product.description}"></div>
+            <hr/>
+            <div class="row">
+                <label class="col-sm-6 text-right">Category:</label>
+
+                <div class="col-sm-6 text-left" th:text="${product.category.name}"></div>
+            </div>
+            <div class="row">
+                <label class="col-sm-6 text-right">Price:</label>
+
+                <div class="col-sm-6 text-left">
+                    <strike class="strike_price" th:if="${product.oldPrice}">
+                        $<span th:text="${#numbers.formatDecimal(product.oldPrice, 0, 'DEFAULT', 2, 'DEFAULT')}"></span>
+                    </strike>
+                    $<span th:text="${#numbers.formatDecimal(product.price, 0, 'DEFAULT', 2, 'DEFAULT')}"></span>
+                </div>
+            </div>
+            <br/>
+
+            <div class="row">
+                <a class="btn btn-md btn-primary" href="#"
+                   th:href="@{/{username}/product/{id}(username=${#httpServletRequest.remoteUser}, id=${product.id})}">Buy Now</a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

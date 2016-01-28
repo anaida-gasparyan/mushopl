@@ -1,0 +1,35 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/layout">
+<body>
+<div layout:fragment="content">
+    <div th:fragment="categoryList" class="row">
+        <div class="col-md-3 col-md-offset-9">
+            <label for="categories">Categories:</label>
+            <select id="categories" class="form-control">
+                <option th:value="NULL">-- Select Category --</option>
+                <option th:each="category : ${categories}" th:value="${{category.id}}"
+                        th:text="${category.name}"></option>
+            </select>
+        </div>
+    </div>
+    <br/>
+    <div id="productList">
+        <div th:replace="fragments/productlist :: list"></div>
+    </div>
+</div>
+<div layout:fragment="script">
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        $(function () {
+            $('#categories').on('change', function () {
+                var url = [[@{/}]];
+                $("#productList").load(url + "products/filter?category=" + $(this).val());
+            });
+        });
+        /*]]>*/
+    </script>
+</div>
+</body>
+</html>

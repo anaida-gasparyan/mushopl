@@ -1,0 +1,31 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/layout">
+<body>
+<div layout:fragment="header">
+    <div th:replace="fragments/header :: header('shopping-card')"></div>
+</div>
+<div layout:fragment="content">
+    <div class="col-md-8">
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+                <tr>
+                    <th>Product</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                </tr>
+                <tr th:each="order : ${orders}">
+                    <td th:text="${order.product.name}"></td>
+                    <td th:text="${'$' + #numbers.formatDecimal(order.product.price, 0, 'DEFAULT', 2, 'DEFAULT')}"></td>
+                    <td th:text="${order.quantity}"></td>
+                    <td th:text="${'$' + #numbers.formatDecimal(order.product.price * order.quantity, 0, 'DEFAULT', 2, 'DEFAULT')}"></td>
+                </tr>
+            </table>
+        </div>
+        <span class="price_style pull-left">Total: $<span th:text="${totalPrice}"></span></span>
+    </div>
+</div>
+</body>
+</html>
