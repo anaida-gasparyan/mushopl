@@ -52,7 +52,7 @@ public class ShoppingCartController {
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public String shoppingCart(@PathVariable("username") String username, Model model) {
 		List<Order> orders = orderService.getOrdersByUser(username);
-		double sum = orders.stream().mapToDouble(o -> o.getProduct().getQuantity() * o.getQuantity()).sum();
+		double sum = orders.stream().mapToDouble(o -> o.getProduct().getPrice() * o.getQuantity()).sum();
 		model.addAttribute("orders", orders);
 		model.addAttribute("totalPrice", sum);
 

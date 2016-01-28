@@ -4,6 +4,7 @@ import com.mushopl.entity.Order;
 import com.mushopl.entity.Product;
 import com.mushopl.entity.security.User;
 import com.mushopl.repo.OrderRepository;
+import com.mushopl.repo.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,9 @@ public class OrderService {
 
 	@Autowired
 	private OrderRepository orderRepository;
+
+	@Autowired
+	private ProductRepository productRepository;
 
 	/**
 	 * Return list of orders for current user
@@ -58,7 +62,9 @@ public class OrderService {
 	public Order makeOrder(@Nonnull String username, @Nonnull Product product) {
 		Order order = orderRepository.findOneByUserUsernameAndProductId(username, product.getId()).orElseGet(() -> new
 				Order(new User(username), product, 0));
-		order.setQuantity(order.getQuantity() + 1); // update quantity
+		order.setQuantity(order.getQuantity() + 1); // update order product quantity
+		product.setQuantity(product.getQuantity() - 1); // update product quantity
+		productRepository.save(product);
 		return orderRepository.save(order);
 	}
 }

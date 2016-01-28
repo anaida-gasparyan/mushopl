@@ -23,4 +23,6 @@ public interface ProductRepository {
 	List<Product> findByQuantityGreaterThan(Integer quantity);
 
 	List<Product> findByCategoryIdAndQuantityGreaterThan(Long categoryId, Integer quantity);
+
+	Product save(Product product);
 }

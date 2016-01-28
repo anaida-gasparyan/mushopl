@@ -22,7 +22,7 @@ public class Order {
 	private Integer quantity;
 
 	@Basic(optional = false)
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@ManyToOne(fetch = FetchType.EAGER, optional = false)
 	@JoinColumn(name = "product_id", referencedColumnName = "product_id")
 	private Product product;
 
