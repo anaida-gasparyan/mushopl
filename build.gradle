@@ -18,13 +18,9 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'spring-boot'
-//apply plugin: 'war'
-//apply plugin: 'jetty'
-//apply plugin: 'eclipse-wtp'
 
 jar {
     baseName = 'mushopl'
-    version = '0.0.1-SNAPSHOT'
 }
 
 springBoot {

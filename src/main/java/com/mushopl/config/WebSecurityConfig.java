@@ -1,7 +1,10 @@
 package com.mushopl.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -32,15 +35,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.logout().logoutSuccessUrl("/login?logout").permitAll()
 				.and()
 				.exceptionHandling().accessDeniedPage("/error/403");
-
-		// Allow view h2 database console for admin role users
-		// TODO Remove this later for production
-//		http.csrf().disable();
-//		http.authorizeRequests()
-//				.anyRequest().permitAll()
-//				.antMatchers("/h2-console/**").permitAll()//.access("hasRole('ADMIN')")
-//				.and()
-//				.headers().frameOptions().disable();
 	}
 
 	@Autowired
@@ -49,8 +43,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		auth.userDetailsService(userDetailsService()).passwordEncoder(passwordEncoder());
 	}
 
-	@Bean(name="userDetailsService")
-	public UserDetailsService userDetailsService(){
+	@Bean(name = "userDetailsService")
+	public UserDetailsService userDetailsService() {
 		JdbcDaoImpl jdbcImpl = new JdbcDaoImpl();
 		jdbcImpl.setDataSource(dataSource);
 		return jdbcImpl;

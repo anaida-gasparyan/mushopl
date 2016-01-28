@@ -77,7 +77,7 @@ public class ShoppingCartController {
 		// TODO this part is duplicated think another solution
 		session.setAttribute("orderQty", orderService.getItemCount(username));
 
-		return "redirect:/" + username;
+		return "redirect:/{username}";
 	}
 
 	/**
