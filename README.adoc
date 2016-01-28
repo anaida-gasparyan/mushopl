@@ -1,6 +1,12 @@
 = Multi User Shopping List "MUSHOPL" 
 
-This is Spring Boot application. It uses `H2` as in memory database. The application comes with some predefined data. It has 3 user (`admin`, `user1`, `user2`) all with password (`123456`). List of all data can be found in `{root}/src/main/resources/data.sql`
+== Description
+The application comes with some predefined data. It has 3 user (`admin`, `user1`, `user2`) all with password (`123456`). List of all data can be found in `{root}/src/main/resources/data.sql`. 
+
+This id shopping cart system. It has a list of products available sor several categories. The products can be added to shopping cart until there is available quantity of given priduct. The list of product orders can be seen in shopping cart.
+
+== Technology
+This is `Spring` (`Spring Boot`, `Spring Data`, `Spring Security`) application. It uses `H2` as in memory database. `Thymeleaf` is used as template engine. `Tomcat` is used as embedded server. `Gradle` is used as build automation system.
 
 == Build
 Application can be build with gradle and jar will be available under `build\libs`
