@@ -1,1 +1,66 @@
-# mushopl
+= Multi User Shopping List "MUSHOPL" 
+
+This is Spring Boot application. It uses `H2` as in memory database. The application comes with some predefined data. It has 3 user (`admin`, `user1`, `user2`) all with password (`123456`). List of all data can be found in `{root}/src/main/resources/data.sql`
+
+== Build
+Application can be build with gradle and jar will be available under `build\libs`
+
+[indent=0]
+----
+  $ gradle build
+----
+
+== Run
+And then application can be simply started using `java -jar`. 
+
+[indent=0]
+----
+  $ java -jar build/libs/mushopl.jar
+----
+
+By default it will be available under `http://localhost:8080/mushopl/`. But the default port and context path can be changed by providing the following parameters:
+
+[indent=0]
+----
+  $ java -jar build/libs/mushopl.jar --server.port=8080 --server.context-path=/mushopl
+----
+
+To stop the application actuator endpoind can be used. 
+
+[indent=0]
+----
+  $ curl -X POST localhost:8080/mushopl/shutdown
+----
+
+You can also run it as a service.
+
+===== As init.d service
+
+The executable jar has the usual `start`, `stop`, `restart`, and `status` commands. 
+It will also set up a PID file in the usual `/var/run` directory and logging in the usual `/var/log` directory by default.
+You just need to symlink your jar into `/etc/init.d` and then start it:
+
+[indent=0]
+----
+  $ sudo link -s /var/myapp/myapp.jar /etc/init.d/myapp
+  $ /etc/init.d/myapp start
+----
+
+===== As a systemd service
+
+To run a Spring Boot application installed in `var/myapp` you can add the following script in `/etc/systemd/system/myapp.service`:
+
+[indent=0]
+----
+[Unit]
+Description=myapp
+After=syslog.target
+
+[Service]
+ExecStart=/var/myapp/myapp.jar
+
+[Install]
+WantedBy=multi-user.target
+----
+
+For more detail on running as service please refer to https://docs.spring.io/spring-boot/docs/current/reference/html/deployment-install.html#deployment-service[Installing Spring Boot applications]
