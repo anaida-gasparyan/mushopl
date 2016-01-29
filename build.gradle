@@ -23,6 +23,10 @@ jar {
     baseName = 'mushopl'
 }
 
+task stage {
+    dependsOn build
+}
+
 springBoot {
     mainClass = "com.mushopl.Application"
 }
