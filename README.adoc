@@ -48,22 +48,22 @@ You just need to symlink your jar into `/etc/init.d` and then start it:
 
 [indent=0]
 ----
-  $ sudo link -s /var/myapp/myapp.jar /etc/init.d/myapp
-  $ /etc/init.d/myapp start
+  $ sudo link -s /var/mushopl/mushopl.jar /etc/init.d/mushopl
+  $ /etc/init.d/mushopl start
 ----
 
 ===== As a systemd service
 
-To run a Spring Boot application installed in `var/myapp` you can add the following script in `/etc/systemd/system/myapp.service`:
+To run a Spring Boot application installed in `var/mushopl` you can add the following script in `/etc/systemd/system/mushopl.service`:
 
 [indent=0]
 ----
 [Unit]
-Description=myapp
+Description=mushopl
 After=syslog.target
 
 [Service]
-ExecStart=/var/myapp/myapp.jar
+ExecStart=/var/mushopl/mushopl.jar
 
 [Install]
 WantedBy=multi-user.target
